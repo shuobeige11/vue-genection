@@ -166,7 +166,7 @@ export default {
         let obj = util.solarToLunar(this.option[3], m, this.cache[i])
         //console.log(obj)
        // console.log(obj.term)
-        this.cnDay[i] = obj.lunarFestival ? obj.lunarFestival : obj.lunarDayName
+        this.cnDay[i] = obj.lunarDayName
         for (let j = 0; j < this.zodiar.length; j++) {
           let t = this.zodiar[j].gongli.substr(6, 2)
           if (Math.ceil(t) == this.cache[i]) {

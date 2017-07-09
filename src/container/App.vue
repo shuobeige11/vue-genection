@@ -69,11 +69,10 @@
             <div class="amplify-top" v-text="divisions">雨水</div>
           </div>
           <div class="lunarce">
-            <div class="lunarcel">
+            <div class="lunarcel" v-if="hours">
               <div class="lunarcel-top" v-text="hours + '点' + minutes + '分' + getSeconds + '秒交节' "></div>
               <div class="lunarcel-bot" v-text="'距离今天还有' + difference + '天'"  :style="'display:' + (difference >= 0 ? 'block' : 'none')">距离今天还有3天</div>
             </div>
-            
           </div>
         </div>
       </div>
