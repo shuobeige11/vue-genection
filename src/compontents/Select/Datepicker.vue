@@ -1,30 +1,30 @@
 <template>
   <div class="alert">
-     <section class="cover" :style="'display:' + (!shows ? 'none' : 'block')"></section>
-     <section class="value"  @click="HandleClick1"></section>
-     
-     <section class="modal-mask" ref="mask" :style="'display:' + (!shows ? 'none' : 'block')">
-        <header class="modal-header">
-            <header class="heading">日历选择</header>
-            <span class="close" @click="HandleClick">完成</span>
-        </header>
-        <section class="modal-body">
-            <div class="box">
-              <dl class="modal-body-con" ref="year">
-                  <dd v-for="n of space.year" v-text='!min ? (1980 + n) : (mins.year - 1 + n)'></dd>
-              </dl>
-            </div>
-            <div class="box">
-              <dl class="modal-body-con" ref="month">
-                  <dd v-for="n of space.month" v-text=" month + n"></dd>
-              </dl>
-            </div>
-            <div class="box">
-              <dl class="modal-body-con" ref="day">
-                  <dd v-for="n of space.day" v-text=" day + n "></dd>
-              </dl>
-            </div>
-            <section class="borders"> </section>
+     <section class="value" @click="HandleClick1"></section>
+     <section :class="'modal' + ( !shows ? ' modal-hide' : '' )">
+        <section class="modal-mask" ref="mask" :style="'display:' + (!shows ? 'none' : 'block')">
+            <header class="modal-header">
+                <header class="heading">日历选择</header>
+                <span class="close" @click="HandleClick">完成</span>
+            </header>
+            <section class="modal-body">
+                <div class="box" ref="box1">
+                  <dl class="modal-body-con" ref="year">
+                      <dd v-for="n of space.year" v-text='!min ? (1980 + n) : (mins.year - 1 + n)'></dd>
+                  </dl>
+                </div>
+                <div class="box" ref="box2">
+                  <dl class="modal-body-con" ref="month">
+                      <dd v-for="n of space.month" v-text=" month + n"></dd>
+                  </dl>
+                </div>
+                <div class="box" ref="box3">
+                  <dl class="modal-body-con" ref="day">
+                      <dd v-for="n of space.day" v-text=" day + n "></dd>
+                  </dl>
+                </div>
+                <section class="borders"></section>
+            </section>
         </section>
      </section>
   </div>
@@ -50,6 +50,9 @@ export default {
       yearElement: null,
       monthElement: null,
       dayElement: null,
+      container1: null,
+      container2: null,
+      container3: null,
       values: '',
       val: null,      
       flag: 0,
@@ -140,16 +143,18 @@ export default {
   },
 
   mounted() {
-    document.body.addEventListener("touchend", (e) => {
+    document.addEventListener("click", (e) => {
       let el = e.target.getAttribute('class')
-      if (el == 'cover') {
+      if (el === 'modal') {
           this.shows = false
-          e.preventDefault()
       }
-      
     }, false)
   },
   
+  // components: {
+  //   pickerStop
+  // },
+
   methods: {
     init(value) {
        let year,
@@ -228,13 +233,18 @@ export default {
       this.yearElement = this.$refs['year']
       this.monthElement = this.$refs['month']
       this.dayElement = this.$refs['day']
+      this.container1 = this.$refs['box1']
+      this.container2 = this.$refs['box2']
+      this.container3 = this.$refs['box3']
 
       let year = new _touch({
+        parElement: this.container1,
         element: this.yearElement,
         subElement: 'dd',
         active: 'active',
         pos: this.pos.year,
-        fn: () => {
+        fn: (scroll, b ) => {
+          b.setAttribute('class', 'active')
           let year = Math.ceil(this.$refs['year'].querySelector('.active').innerText)
           let month = Math.ceil(this.$refs['month'].querySelector('.active').innerText)
           let dd = Math.ceil(this.$refs['day'].querySelector('.active').clientHeight)
@@ -253,24 +263,23 @@ export default {
               sum += dd
             }
             
-            let n = this.dayElement.style.transform
-            n = n.match(/\d+/g)[0]
-            if (n && Math.ceil(n) > sum) {
+            setTimeout(() => {
               this.dayElement.querySelectorAll('dd')[this.space.day - 1].setAttribute('class', 'active')
-              this.dayElement.style.cssText = "-webkit-transform: translateY(" + Math.ceil(0 - sum) + "px)"
-            }
-
+              this.dayElement.style['WebkitTransform'] = 'translate3d(0px, 0px, 0) scale(1)'
+            }, 120)
           }
         }
       })
 
 
       let month = new _touch({
+        parElement: this.container2,
         element: this.monthElement,
         subElement: 'dd',
         active: 'active',
         pos: this.pos.month,
-        fn: () => {
+        fn: (scroll, b) => {
+          b.setAttribute('class', 'active')
           let year = Math.ceil(this.$refs['year'].querySelector('.active').innerText)
           let month = Math.ceil(this.$refs['month'].querySelector('.active').innerText)
           let dd = Math.ceil(this.$refs['day'].querySelector('.active').clientHeight)
@@ -283,22 +292,23 @@ export default {
           for (let i = 0; i < this.space.day - 1; i++) {
             sum += dd
           }
-          
-          let n = this.dayElement.style.transform
-          n = n.match(/\d+/g)[0]
-          if (n && Math.ceil(n) > sum) {
+          setTimeout(() => {
             this.dayElement.querySelectorAll('dd')[this.space.day - 1].setAttribute('class', 'active')
-            this.dayElement.style.cssText = "-webkit-transform: translateY(" + Math.ceil(0 - sum) + "px)"
-          }
+            this.dayElement.style['WebkitTransform'] = 'translate3d(0px, 0px, 0) scale(1)'
+          }, 120)
         }
         
       })
 
       new _touch({
+        parElement: this.container3,
         element: this.dayElement,
         subElement: 'dd',
         active: 'active',
-        pos: this.pos.day
+        pos: this.pos.day,
+        fn: (scroll, b) => {
+          b.setAttribute('class', 'active')
+        }
       })
 
     },
@@ -325,16 +335,19 @@ export default {
         for (let i = 0; i < plus; i++) {
           sum += dd
         }
-        
-        el[plus].setAttribute('class', 'active')
-        this.monthElement.style.cssText = "-webkit-transform: translateY("+ (0 - sum) +"px)"
-        day = timers(year, month)
+        setTimeout(() => {
+          el[plus].setAttribute('class', 'active')
+          this.monthElement.style['WebkitTransform'] = 'translate3d(0px, 0px, 0) scale(1)'
+          day = timers(year, month)
+        }, 120)
       } else {
         this.space.month = this.month + 1
         this.month = 0
-        el[0].setAttribute('class', 'active')
-        this.monthElement.style.cssText = "-webkit-transform: translateY(0px)"
-        day = timers(year, this.month + 1)
+        setTimeout(() => {
+          el[0].setAttribute('class', 'active')
+          this.monthElement.style['WebkitTransform'] = 'translate3d(0px, 0px, 0) scale(1)'
+          day = timers(year, this.month + 1)
+        }, 120)
       }
 
       this.space.day = day - this.day

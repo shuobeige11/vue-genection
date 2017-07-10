@@ -92,15 +92,6 @@ var provs_data = [{
 	}, {
 		"text": "\u65b0\u7586\u7ef4\u543e\u5c14\u81ea\u6cbb\u533a",
 		"value": "650000"
-	}, {
-		"text": "\u53f0\u6e7e\u7701",
-		"value": "710000"
-	}, {
-		"text": "\u9999\u6e2f\u7279\u522b\u884c\u653f\u533a",
-		"value": "810000"
-	}, {
-		"text": "\u6fb3\u95e8\u7279\u522b\u884c\u653f\u533a",
-		"value": "820000"
 	}],
 	citys_data = {
 		"110000": [{
@@ -1168,10 +1159,7 @@ var provs_data = [{
 		}, {
 			"text": "\u81ea\u6cbb\u533a\u76f4\u8f96\u53bf\u7ea7\u884c\u653f\u533a\u5212",
 			"value": "659000"
-		}],
-		"710000": "",
-		"810000": "",
-		"820000": ""
+		}]
 	},
 	dists_data = {
 		"110100": [{

@@ -1,15 +1,19 @@
-@function toRem($px) {
-  @return 64px * $px / 75px / 32px * 1rem;
-}
-dl {
-  margin:0
+
+.modal {
+  position:fixed;
+  width:100%;
+  bottom: 0;
+  left: 0;
+  height:100%;
+  background:rgba(0, 0, 0, .3);
+  z-index:10000;
 }
 .modal-mask {
   position:fixed;
-  bottom: 0;
-  left: 0;
+  left:0;
+  bottom:0;
   width: 100%;
-  height: toRem(380px);
+  height: 238px;
   background: #fff;
   z-index: 10007;
 }
@@ -25,26 +29,34 @@ dl {
 .modal-header {
   text-align: center;
   width:100%;
-  line-height:toRem(98px);
-  height:toRem(120px);
-  font-size: toRem(28px);
+  line-height:48px;
+  height:48px;
   position: relative;
 }
 
 .close {
   position: absolute;
-  line-height: toRem(88px);
-  right:toRem(30px);
+  line-height: 44px;
+  right:15px;
   top:0;
-  color:#337bea;
-  font-size:toRem(24px)
+  color:#ff397e;
+  font-size:14px
+}
+.close1 {
+  position: absolute;
+  line-height: 46px;
+  left:15px;
+  top:0;
+  color:#ccc;
+  font-size:14px
 }
 .modal-body {
-  height: toRem(324px);
   overflow:hidden;
   position:relative;
   display:flex;
   .box {
+    height: 238px;
+    color:#444;
     flex:1;
     position:relative;
   }
@@ -54,47 +66,39 @@ dl {
     width:100%;
   }
   dd {
-    height: 38px;
+    height: 42px;
     text-align:center;
-    font-size:toRem(28px);
-    line-height: 38px;
+    font-size:14px;
+    line-height: 40px;
     color:#9d9d9d;
   }
   dd.active {
-    color:#444
+    color:#ff6ea0
   }
   .borders {
     color:#444;
     position:absolute;
-    top:0;
+    top:50px;
     left:0;
     width:100%;
-    height:toRem(76px);
+    height:40px;
     z-index: 10002;
-    border-top: 1px solid #c6c6c6;
-    border-bottom: 1px solid #c6c6c6
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd
   }
   
 }
 
 .value {
-  width:40%;
-  margin:0 auto;
-  height:toRem(96px)
+  width:100%;
+  height:10px
 }
 
 .modal-hide {
   height: 0;
   overflow: hidden
 }
-
-.cover {
-  height:100%;
-  width:100%;
-  position:fixed;
-  z-index:5000;
-  top:0;
-  left:0;
-  background:rgba(0, 0, 0, .3);
-  
+.heading {
+  font-size: 15px;
+  color:#b0b0b0;
 }
