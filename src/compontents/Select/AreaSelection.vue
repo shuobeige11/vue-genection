@@ -143,10 +143,10 @@ export default {
             el1[0].setAttribute('class', 'active')
             el2[0].setAttribute('class', 'active')
 
-            let provCode = city.substr(0,3)
-            let dist = provCode + '100'
+            let dist = el2[0].getAttribute('data-value')
             this.prov_city = this.citys[city]
             this.prov_dist = this.dists[dist]
+            console.log(this.prov_city)
             this.pos.dist = 0
             this.pos.city = 0
             this.provElement.setAttribute('data-pos', '0')
@@ -183,7 +183,7 @@ export default {
               el2[i].setAttribute('class', '')
             }
 
-            el2[0].setAttribute('class', 'active')
+            el2[0] && el2[0].setAttribute('class', 'active')
 
             this.prov_dist = this.dists[dist]
             this.pos.dist = 0
