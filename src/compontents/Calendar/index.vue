@@ -44,7 +44,7 @@ export default {
         count: 0,
         el: null,
         list: [],
-        nid: '',
+        nid: '' || 5098,
         zodiar: [],
         swiperOption: {
           pagination: '.swiper-pagination',
@@ -72,13 +72,12 @@ created () {
             this.pos = i
         }
     }
-    this.nid = Cookie.get('a_n')
+    this.nid = Cookie.get('a_n') || 5098
     
 },
 mounted() {
   let timer = new Date()
   let times = this.formateTimer(timer)
-  console.log(2)
   let flag = true
   serverOption(api.getMonth, {
       timer: times,

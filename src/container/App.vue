@@ -319,7 +319,7 @@ export default {
       this.zodiac = obj.zodiac
       this.types = this.data1[value.getDate() - 1].type
       //console.log(this.data1[value.getDate()-1])
-      let nid = Cookie.get('a_n')
+      let nid = Cookie.get('a_n') || 5098
    
       let times = value.getFullYear().toString() + ((value.getMonth() + 1) > 9 ? (value.getMonth() + 1).toString() : '0' + (value.getMonth() + 1)) + this.today.toString()
       this.directDay = times
@@ -383,7 +383,7 @@ export default {
       this.createdDay()
       let times = value.split('-')
       times = times[0] + times[1] + times[2]
-      let nid = Cookie.get('a_n')
+      let nid = Cookie.get('a_n') || 5098
 
       let td = document.querySelectorAll('td')
       
@@ -484,7 +484,7 @@ export default {
         // }
 
         let times = year + m + '01'
-        let nid = Cookie.get('a_n')
+        let nid = Cookie.get('a_n') || 5098
         serverOption(api.getMonth, {
           timer: times,
           nid: nid
