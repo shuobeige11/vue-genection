@@ -182,32 +182,34 @@ export default {
       }
   },
   created() {
+    
     this.val = this.value
-
+    
     let year = this.value.getFullYear()
     let days = this.value.getDate()
+    let month = this.value.getMonth() + 1
     this.min = year + '-' + '01-01'
     this.max = year + '-' + '12-31'
     this.month = this.value.getMonth() + 1
     this.years = this.value.getFullYear()
     this.directDay = this.years + (this.month > 9 ? month : '0' + this.month) + (days > 9 ? days : '0' + days)
+    
     this.value = this.years + '年' + (this.month > 9 ? month : '0' + this.month) + '月'
    // console.log(util.solarToLunar('2017', '03', '01'), util.calendar('2017','02'))
     //this.directDay = this.years + (this.month > 9 ? month : '0' + this.month) + (this.value.getDate() > 9 ? this.value.getDate() : '0' + this.value.getDate())
     
     for (let i = 0; i < 14; i++) {
-        let month = ''
-        if (i == 0) {
-          let year = this.years - 1
-          month = year + '/' + '12/01'
-        } else if (i == 13 ) {
-          let year = this.years + 1
-          month = year + '/' + '1/01'
-        } else {
-          month = this.years + '/' + i + '/01'
-        }
-        
-        this.timerList.push(new Date(month).toString())  
+      let month = ''
+      if (i == 0) {
+        let year = this.years - 1
+        month = year + '/' + '12/01'
+      } else if (i == 13 ) {
+        let year = this.years + 1
+        month = year + '/' + '1/01'
+      } else {
+        month = this.years + '/' + i + '/01'
+      }
+      this.timerList.push(new Date(month).toString())  
     }
     
   },
@@ -273,6 +275,7 @@ export default {
         alert('当日没有订阅黄历')
         return
       }
+      
       let td = calendar.querySelectorAll('td')
       let className
       for (let i = 0; i < td.length; i++) {
