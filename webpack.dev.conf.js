@@ -1,14 +1,13 @@
 var path = require('path')
 var fs = require('fs')
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-
+console.log(path.join(__dirname, 'src/component'))
 module.exports = {
   entry: {
-       index: [
-        'webpack-hot-middleware/client',
-         path.resolve(__dirname, './src/container/main.js')
-      ]
+    index: [
+      'webpack-hot-middleware/client',
+      path.resolve(__dirname, './src/container/main.js')
+    ]  
   },
   output: {
     path: path.resolve(__dirname, 'static/js'),
@@ -16,25 +15,35 @@ module.exports = {
     filename: 'index.min.js'
   },
   resolve: {
-      
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    modules: [
+      path.join(__dirname, './node_modules')
+    ],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue': 'vue/dist/vue.common.js',
-      'src': path.resolve(__dirname, '../src'),
-      'components': path.resolve(__dirname, '../src/components')
+      'vue': 'vue/dist//vue.esm.js',
+      'component': path.join(__dirname, 'src/component')
     }
   },
   plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'vue'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            scss: 'style-loader!css-loader!sass-loader'
+          },
+          postcss: [
+            require('autoprefixer')({
+              browsers: ['last 7 versions']
+            })
+          ]
+        }
       },
       {
         test: /\.css$/,
@@ -46,7 +55,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/
       },
       {
@@ -55,25 +64,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
+        loader: 'url-loader',
         query: {
           limit: 20192,
           name: path.resolve(__dirname, 'dist/img/[name].[hash:7].[ext]')
         }
       }
-    ]
-  },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  },
-  vue: {
-    loaders: {
-        scss: 'style!css!sass'
-    },
-    postcss: [
-      require('autoprefixer')({
-        browsers: ['last 7 versions']
-      })
     ]
   }
 }

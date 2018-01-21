@@ -17,10 +17,7 @@ const serverOption = {
     'Access-Control-Allow-Origin': '*'
   },
   publicPath: config.output.publicPath,
-  noInfo: true,
-  stats: {
-    colors: true
-  }
+  noInfo: true
 }
 
 app.use(webpackDevMiddleware(compiler, serverOption))
@@ -28,4 +25,8 @@ app.use(webpackHotMiddleware(compiler))
 
 app.get('/', (req, res) => {
     res.render('index', {title: 'html'})
+})
+
+app.get('/login', (req, res) => {
+  res.render('login', {title: 'a'})
 })
