@@ -17,7 +17,7 @@
 
 nginx:
    
-   [image](2.png)
+   ![image](2.png)
 
 node: (参考bin文件夹下dev.js配置： 基于express路由配置) 
 
