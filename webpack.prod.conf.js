@@ -98,7 +98,7 @@ module.exports = {
 
 function connect() {
   var arr = []
-  files.forEach(data => {
+  files.forEach(function(data) {
     var cache = null
     cache = new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, './dist/' + data + '/index.html'),
@@ -117,10 +117,10 @@ HtmlWebpackPluginDist.prototype.apply = function (compiler) {
   compiler.plugin('compilation', function (compilation) {
     compilation.plugin(
       'html-webpack-plugin-before-html-processing',
-      (data, cb) => {
+      function (data, cb)  {
         var filename = data.assets.js
-        filename = filename.map(data => data.replace(/\/js\//, ''))
-        filename = filename.map(data => {
+        filename = filename.map(function(data) { return data.replace(/\/js\//, '') })
+        filename = filename.map(function(data) {
           var name = data.split('.')
           return name[0]
         })
