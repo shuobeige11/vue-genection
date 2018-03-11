@@ -54,7 +54,7 @@ node: (参考bin文件夹下dev.js配置： 基于express路由配置)
 |       |   └── main.js
 │   ├── components(公共组件)
 │   └── common(公共方法)
-│   └── pluges(中加件)
+│   └── pluges(中间件)
 ├── view
 │   ├── test.html
 │   ├── test2.html
