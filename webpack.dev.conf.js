@@ -1,18 +1,21 @@
 var path = require('path')
 var fs = require('fs')
 var webpack = require('webpack');
-console.log(path.join(__dirname, 'src/component'))
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var fileReder = require('./readfiles')
+var files = fileReder('./src/features')
+var jsFile = {}
+
+files.forEach(data => {
+  jsFile[data] = ['webpack-hot-middleware/client', './src/features/' + data + '/main.js' ] 
+})
+
 module.exports = {
-  entry: {
-    index: [
-      'webpack-hot-middleware/client',
-      path.resolve(__dirname, './src/container/main.js')
-    ]  
-  },
+  entry: jsFile,
   output: {
     path: path.resolve(__dirname, 'static/js'),
     publicPath: '/js/',
-    filename: 'index.min.js'
+    filename: '[name].min.js'
   },
   resolve: {
     modules: [
@@ -25,9 +28,9 @@ module.exports = {
     }
   },
   plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [
@@ -73,4 +76,3 @@ module.exports = {
     ]
   }
 }
-

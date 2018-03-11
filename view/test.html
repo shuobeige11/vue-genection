@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title></title>
+    <style>
+      div, section, table, td, th, span, a, em, dfn {
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: rgba(255,255,255,0);
+      }
+      html, body {
+        margin:0;
+        padding:0;
+        height: 100%
+      }
+      p {
+        margin:0;
+        padding: 0
+      }
+      body {
+          font-family:Microsoft Yahei, sans-serif;
+          font-size: 12px;
+          color: #323232;
+          user-select: none;
+          width: 100%;
+          overflow-x: hidden;
+          background:#f5f5f5;
+          color: #323232;
+      }
+      a {
+          text-decoration: none;
+          outline: none;
+          color: #323232;
+      }
+
+    </style>
+
+   
+    <script type="text/javascript">
+      
+    function _adaptFont(maxWidth, baseWidth, baseSize) {
+        maxWidth = 750; 
+        baseWidth = 320;
+        baseSize = 16;
+        var winWidth = parseInt(window.innerWidth);
+        var docWidth = parseInt(document.documentElement.clientWidth); 
+        var bodyWidth = parseInt(document.body.clientWidth); 
+        var docWidth = Math.min(winWidth, bodyWidth, docWidth);
+        docWidth > maxWidth && (docWidth = maxWidth);
+        docWidth < baseWidth && (docWidth = baseWidth);
+      
+        document.documentElement.style.fontSize = (docWidth / baseWidth) * baseSize + 'px';
+    }
+
+    (function() {
+        window.addEventListener("resize", _adaptFont);
+        window.addEventListener("load", _adaptFont);
+    })();
+
+    </script>
+
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <script type="text/javascript" src="/js/test.min.js"></script>
+    <!-- built files will be auto injected -->
+   </body>
+</html>

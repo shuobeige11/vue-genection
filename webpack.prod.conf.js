@@ -1,15 +1,41 @@
 var path = require('path')
 var fs = require('fs')
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var fileReder = require('./readfiles')
+var files = fileReder('./src/features')
+var jsFile = {}
+jsFile['vender'] = ['vue', 'vue-router', 'vuex', 'axios']
+
+files.forEach(data => {
+  jsFile[data] = './src/features/' + data + '/main.js'  
+})
+var pluginsArray1 = connect()
+
+var pluginsArray2 = [
+  new HtmlWebpackPluginDist(),
+  new webpack.optimize.OccurrenceOrderPlugin(),
+  new webpack.optimize.UglifyJsPlugin({
+    output: {
+      comments: false,
+    },
+    compress: {
+      warnings: false
+    }
+  }),
+  //new webpack.optimize.CommonsChunkPlugin('common', 'dist/js/vendor.js'),
+  new webpack.optimize.CommonsChunkPlugin({
+    name: ['vender'],
+    minChunks: 1
+  }),
+  new webpack.NoErrorsPlugin()
+] 
+pluginsArray1 = pluginsArray1.concat(pluginsArray2)
 
 module.exports = {
-  entry: {
-    index: [
-      path.resolve(__dirname, './src/container/main.js')
-    ]  
-  },
+  entry: jsFile,
   output: {
-    path: path.resolve(__dirname, 'static/js'),
+    path: path.resolve(__dirname, 'dist/js'),
     publicPath: '/js/',
     filename: '[name].[chunkhash].js'
   },
@@ -19,39 +45,11 @@ module.exports = {
     ],
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue': 'vue/dist//vue.esm.js',
+      'vue': 'vue/dist/vue.esm.js',
       'component': path.join(__dirname, 'src/component')
     }
   },
-  plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-          compress: {
-            warnings: false
-          }
-        }),
-         new webpack.optimize.CommonsChunkPlugin({
-          name: 'vendor',
-          minChunks: function (module, count) {
-            // any required modules inside node_modules are extracted to vendor
-            
-            return (
-              module.resource &&
-              /\.js$/.test(module.resource) &&
-              module.resource.indexOf(
-                path.resolve(__dirname, './node_modules')
-              ) === 0
-            )
-          }
-        }),
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-        new webpack.optimize.CommonsChunkPlugin({
-          name: 'manifest',
-          chunks: ['vendor']
-        }),
-    new webpack.NoErrorsPlugin()
-  ],
+  plugins: pluginsArray1,
   module: {
     rules: [
       {
@@ -97,3 +95,40 @@ module.exports = {
   }
 }
 
+
+function connect() {
+  var arr = []
+  files.forEach(data => {
+    var cache = null
+    cache = new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, './dist/' + data + '/index.html'),
+      template: './view/'+ data + '.html',
+      chunks:['vender', data]
+    })
+    arr.push(cache)  
+  })
+  return arr
+}
+
+function HtmlWebpackPluginDist() {}
+HtmlWebpackPluginDist.prototype.apply = function (compiler) {
+  var self = this;
+  // Hook into the html-webpack-plugin processing
+  compiler.plugin('compilation', function (compilation) {
+    compilation.plugin(
+      'html-webpack-plugin-before-html-processing',
+      (data, cb) => {
+        var filename = data.assets.js
+        filename = filename.map(data => data.replace(/\/js\//, ''))
+        filename = filename.map(data => {
+          var name = data.split('.')
+          return name[0]
+        })
+        if (data.html.match(filename[1])) {
+          data.html = data.html.replace('<script type="text/javascript" src="/js/' + filename[1] + '.min.js"></script>', '')
+        } 
+        cb(null, data)
+      }
+    )
+  });
+};
