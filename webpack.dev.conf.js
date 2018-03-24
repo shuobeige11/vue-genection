@@ -24,7 +24,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue': 'vue/dist//vue.esm.js',
-      'component': path.join(__dirname, 'src/component')
+      '@': path.join(__dirname, 'src/components')
     }
   },
   plugins: [
@@ -50,7 +50,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!sass-loader'
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.scss$/,
@@ -66,8 +66,12 @@ module.exports = {
         loader: 'json'
       },
       {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: "file-loader"
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
+        loader: 'url-loader!file-loader',
         query: {
           limit: 20192,
           name: path.resolve(__dirname, 'dist/img/[name].[hash:7].[ext]')

@@ -2,9 +2,14 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import App from './App'
+// import { sync } from 'vuex-router-sync'
+import { store } from './store'
 import Router from './router'
+import App from '../../common/App'
+import services from '../../pluges/service'
+
 Vue.use(VueRouter)
+Vue.use(services)
 
 const router = new VueRouter({
   routes: Router(),
@@ -22,6 +27,7 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
 

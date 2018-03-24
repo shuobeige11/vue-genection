@@ -1,2 +1,5 @@
-import stores from '../../pluges/store'
-export const store = stores({})
+import stores from '../../../pluges/store'
+import test1 from '../module/test1'
+export const store = stores({
+  test1
+})

@@ -68,7 +68,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!sass-loader'
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: "file-loader"
       },
       {
         test: /\.scss$/,
@@ -85,7 +89,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
+        loader: 'url-loader!file-loader',
         query: {
           limit: 20192,
           name: path.resolve(__dirname, 'dist/img/[name].[hash:7].[ext]')
