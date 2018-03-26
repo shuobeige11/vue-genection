@@ -3,14 +3,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui';
+import axios from 'axios'
+import services from '../../pluges/service'
 import { store } from './store'
 import Router from './router'
 import App from '../../common/App'
-import axios from './axios'
 import 'element-ui/lib/theme-chalk/index.css';
 
+services(store)
 Vue.use(VueRouter)
-Vue.use(axios)
+Vue.use(plugin)
 Vue.use(ElementUI)
 
 const router = new VueRouter({
@@ -33,3 +35,24 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+function plugin(Vue) {
+    if (plugin.installed) {
+      return
+    }
+    plugin.installed = true
+    Object.defineProperties(Vue.prototype, {
+      axios: {
+        get () {
+          return axios
+        }
+      },
+      $http: {
+        get () {
+          return axios
+        }
+      }
+    })
+  }
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(plugin)
+  }
