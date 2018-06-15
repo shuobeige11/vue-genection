@@ -12,8 +12,6 @@
 </template>
 
 <script>
-  import { Dialog } from 'element-ui'
-
   export default {
     props: {
       msg: {

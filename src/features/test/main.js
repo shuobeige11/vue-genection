@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
   // 更改iframe src fix bug
   if (document.getElementById('title_refresher')) {
     let titleRefresher = document.getElementById('title_refresher')
-    titleRefresher.src = '//st.haiziwang.com/static/passport/0.1.1/favicon.ico'
+    titleRefresher.src = ''
   }
   next()
 })
@@ -42,11 +42,6 @@ function plugin(Vue) {
     plugin.installed = true
     Object.defineProperties(Vue.prototype, {
       axios: {
-        get () {
-          return axios
-        }
-      },
-      $http: {
         get () {
           return axios
         }

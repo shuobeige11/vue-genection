@@ -2,7 +2,6 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import { sync } from 'vuex-router-sync'
 import { store } from './store'
 import Router from './router'
 import App from '../../common/App'
@@ -20,7 +19,7 @@ router.beforeEach((to, from, next) => {
   // 更改iframe src fix bug
   if (document.getElementById('title_refresher')) {
     let titleRefresher = document.getElementById('title_refresher')
-    titleRefresher.src = '//st.haiziwang.com/static/passport/0.1.1/favicon.ico'
+    titleRefresher.src = ''
   }
   next()
 })
