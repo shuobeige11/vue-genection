@@ -2,13 +2,17 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import ElementUI from 'element-ui';
+import services from '../../pluges/service'
 import { store } from './store'
 import Router from './router'
 import App from '../../common/App'
-import services from '../../pluges/service'
+import 'element-ui/lib/theme-chalk/index.css';
+
 
 Vue.use(VueRouter)
 Vue.use(services)
+Vue.use(ElementUI)
 
 const router = new VueRouter({
   routes: Router(),
