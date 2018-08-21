@@ -1,13 +1,9 @@
 {
   "presets": ["es2015", "stage-0"],
-  "plugins": ["transform-runtime","transform-vue-jsx",
-    [
-      "component",
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
-      }
-    ]
+  "plugins": [
+    "transform-runtime",
+    "transform-vue-jsx",
+    "transform-decorators-legacy"
   ],
   "comments": false
 }

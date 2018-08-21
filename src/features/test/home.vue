@@ -1,7 +1,14 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+    <div>1111</div>
+  </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    created () {
+      console.log(1)
+    }
+  }
 </script>

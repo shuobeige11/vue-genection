@@ -12,7 +12,7 @@
 
   export default {
     computed: {
-      codeMsg() {
+      codeMsg () {
         return this.$store.getters.codeMsg
       }
     },

@@ -5,15 +5,14 @@
 </template>
 
 <script>
-
-  export default {
-    created() {
-      console.log(13232)
-    },
-    methods: {
-      onClick() {
-        this.$store.dispatch('getMessage')
-      }
+  import Vue from 'vue'
+  import { Component, Watch } from 'vue-property-decorator' // eslint-disable-line
+  export default class Test extends Vue {
+    created () {
+      console.log(123)
+    }
+    onClick = () => {
+      this.$store.dispatch('getMessage')
     }
   }
 </script>

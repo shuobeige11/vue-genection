@@ -8,8 +8,6 @@ const route2 = resolve => {
     resolve(require('./container/test'))
   })
 }
-
-
 const routes = [
   {
     path: '/test1',

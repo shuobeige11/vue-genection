@@ -5,9 +5,8 @@
 </template>
 
 <script>
-
   export default {
-    created() {
+    created () {
       console.log(2)
     }
   }

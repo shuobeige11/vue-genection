@@ -1,9 +1,4 @@
 import axios from 'axios'
-import { API_LIST } from '../api'
-
-const actinType = {
-  GET_API_TEST: 'GET_API_TEST'  
-}
 
 const state = {
   list: []
@@ -14,15 +9,16 @@ const getters = {
 }
 
 const actions = {
-  async getMessage({ }) {
-    let r = await axios.get(API_LIST)
-  }  
+  async getMessage () {
+    let r = await axios.get('/cust-complain-app/complaints/personStatistics')
+    console.log(r)
+  }
 }
 
 const mutations = {
-  [actinType.GET_API_TEST](state, data) {
-     state.list = data 
-  }  
+  GET_API_TEST (state, data) {
+    state.list = data
+  }
 }
 
 export default {

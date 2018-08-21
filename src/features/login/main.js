@@ -2,12 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MintUI from 'mint-ui'
 import axios from 'axios'
-import services from '../../pluges/service'
-import { store } from './store'
 import Router from './router'
-import App from '../../common/App'
+import Home from './Home'
 
-services(store)
 Vue.use(VueRouter)
 Vue.use(plugin)
 Vue.use(MintUI)
@@ -15,7 +12,9 @@ Vue.use(MintUI)
 const router = new VueRouter({
   routes: Router()
 })
+
 router.beforeEach((to, from, next) => {
+  // 更改iframe src fix bug
   if (document.getElementById('title_refresher')) {
     let titleRefresher = document.getElementById('title_refresher')
     titleRefresher.src = ''
@@ -25,8 +24,7 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
   router,
-  store,
-  render: h => h(App)
+  render: h => h(Home)
 }).$mount('#app')
 
 function plugin (Vue) {

@@ -1,40 +1,39 @@
-function show() {
+function show () {
   const loader = document.querySelector('.uiLoadingBlock')
   if (loader) {
     loader.setAttribute('class', 'uiLoadingBlock show')
-    return 
+    return
   }
-  const html_str = `<style>${css()}</style><div class="uiLoadingCnt">
+  const htmlStr = `<style>${css()}</style><div class="uiLoadingCnt">
                         <i class="uiLoadingBright"></i>
                     </div>`
-  const div = document.createElement('div');
+  const div = document.createElement('div')
   div.setAttribute('class', 'uiLoadingBlock show')
-  div.innerHTML = html_str
+  div.innerHTML = htmlStr
   document.body.appendChild(div)
 }
 
-function hide() {
+function hide () {
   const loader = document.querySelector('.uiLoadingBlock')
   if (!loader) return
   loader.setAttribute('class', 'uiLoadingBlock')
 }
 
-function css() {
+function css () {
   return `.loading{
-	display: flex;
-	box-pack: center;
-	box-align: center;
-	text-align: center;
-	height: 40px;
+  display: flex;
+  box-pack: center;
+  box-align: center;
+  text-align: center;
+  height: 40px;
 }
 .uiLoading{
-	width: 20px;
-	height: 20px;
-	display: block;
-	background: url("../assets/img/loading_sprite.png");
-	background-size: auto 20px;
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: url("../assets/img/loading_sprite.png");
+  background-size: auto 20px;
   animation: am-rotate 1s steps(12) infinite;
-
 }
 .uiLoadingBright{
     width: 37px;
@@ -85,7 +84,7 @@ function css() {
 
 @-webkit-keyframes am-rotate {
     from {
-    	background-position: 0 0;
+      background-position: 0 0;
     }
 
     to {
@@ -94,7 +93,7 @@ function css() {
 }
 @-webkit-keyframes am-rotate2 {
     from {
-    	background-position: 0 0;
+      background-position: 0 0;
     }
 
     to {
