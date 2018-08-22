@@ -10,7 +10,7 @@ const getters = {
 
 const actions = {
   async getMessage () {
-    let r = await axios.get('/cust-complain-app/complaints/personStatistics')
+    let r = await axios.get('/')
     console.log(r)
   }
 }
