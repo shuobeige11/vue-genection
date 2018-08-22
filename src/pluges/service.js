@@ -9,7 +9,7 @@ let defaultConfig = {
 axios.interceptors.request.use(
   config => {
     Object.assign(defaultConfig, config)
-    let reg = new RegExp('.(ymm56|ymmoa)')
+    let reg = new RegExp('.(a)')
     reg.test(defaultConfig.url)
       ? (defaultConfig.withCredentials = false)
       : (defaultConfig.withCredentials = true)
